@@ -11,9 +11,9 @@ export function ThemeToggle() {
       size="icon"
       onClick={toggle}
       aria-label="Toggle theme"
-      className="rounded-full hover:bg-accent transition-colors"
+      className="h-9 w-9 rounded-lg text-muted-foreground hover:text-foreground transition-colors"
     >
-      {isDark ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
+      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </Button>
   );
 }

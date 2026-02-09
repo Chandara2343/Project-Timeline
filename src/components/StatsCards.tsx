@@ -1,5 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FolderOpen, Target, CheckCircle, Clock } from 'lucide-react';
+import { FolderOpen, Target, CheckCircle2, Clock } from 'lucide-react';
 
 interface StatsCardsProps {
   totalProjects: number;
@@ -16,50 +15,52 @@ export function StatsCards({
 }: StatsCardsProps) {
   const stats = [
     {
-      title: 'Total Projects',
+      title: 'Projects',
       value: totalProjects,
       icon: FolderOpen,
-      gradient: 'from-primary/10 to-primary/5',
-      iconClass: 'text-primary',
+      iconBg: 'bg-primary/10',
+      iconColor: 'text-primary',
     },
     {
-      title: 'Total Milestones',
+      title: 'Milestones',
       value: totalMilestones,
       icon: Target,
-      gradient: 'from-info/10 to-info/5',
-      iconClass: 'text-info',
+      iconBg: 'bg-info/10',
+      iconColor: 'text-info',
     },
     {
       title: 'In Progress',
       value: inProgressMilestones,
       icon: Clock,
-      gradient: 'from-warning/10 to-warning/5',
-      iconClass: 'text-warning',
+      iconBg: 'bg-warning/10',
+      iconColor: 'text-warning',
     },
     {
       title: 'Completed',
       value: completedMilestones,
-      icon: CheckCircle,
-      gradient: 'from-success/10 to-success/5',
-      iconClass: 'text-success',
+      icon: CheckCircle2,
+      iconBg: 'bg-success/10',
+      iconColor: 'text-success',
     },
   ];
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
       {stats.map((stat, index) => (
         <div
           key={stat.title}
-          className="stat-card animate-slide-up"
-          style={{ animationDelay: `${index * 80}ms` }}
+          className="stat-card animate-fade-in"
+          style={{ animationDelay: `${index * 60}ms` }}
         >
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
-            <div className={`p-2 rounded-lg bg-gradient-to-br ${stat.gradient}`}>
-              <stat.icon className={`h-4 w-4 ${stat.iconClass}`} />
+          <div className="flex items-center gap-3">
+            <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${stat.iconBg}`}>
+              <stat.icon className={`h-[18px] w-[18px] ${stat.iconColor}`} />
+            </div>
+            <div className="min-w-0">
+              <p className="text-[13px] font-medium text-muted-foreground truncate">{stat.title}</p>
+              <p className="text-2xl font-bold tracking-tight leading-tight">{stat.value}</p>
             </div>
           </div>
-          <p className="text-3xl font-bold tracking-tight">{stat.value}</p>
         </div>
       ))}
     </div>
