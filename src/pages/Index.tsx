@@ -115,8 +115,8 @@ export default function Index() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
-          <span className="text-sm text-muted-foreground">Loading...</span>
+          <div className="h-6 w-6 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+          <span className="text-[13px] text-muted-foreground">Loading...</span>
         </div>
       </div>
     );
@@ -126,30 +126,28 @@ export default function Index() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-50 glass-header">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="container flex h-14 items-center justify-between max-w-4xl">
+          <div className="flex items-center gap-3">
             {currentProject ? (
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setSelectedProject(null)}
-                className="shrink-0 rounded-full hover:bg-accent"
+                className="shrink-0 h-8 w-8 rounded-lg"
               >
-                <ArrowLeft className="h-5 w-5" />
+                <ArrowLeft className="h-4 w-4" />
               </Button>
             ) : (
-              <div className="flex items-center gap-2.5">
-                <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                  <Layers className="h-4 w-4 text-primary-foreground" />
-                </div>
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                <Layers className="h-4 w-4 text-primary-foreground" />
               </div>
             )}
-            <div>
-              <h1 className="text-lg font-bold tracking-tight">
+            <div className="min-w-0">
+              <h1 className="text-sm font-bold tracking-tight truncate">
                 {currentProject ? currentProject.name : 'Timeline'}
               </h1>
-              {currentProject && (
-                <p className="text-xs text-muted-foreground">{currentProject.description}</p>
+              {currentProject && currentProject.description && (
+                <p className="text-[12px] text-muted-foreground truncate">{currentProject.description}</p>
               )}
             </div>
           </div>
@@ -157,35 +155,35 @@ export default function Index() {
         </div>
       </header>
 
-      <main className="container py-8 max-w-5xl">
+      <main className="container py-6 max-w-4xl">
         {!currentProject ? (
-          <div className="space-y-8">
+          <div className="space-y-6">
             <StatsCards {...stats} />
 
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold tracking-tight">Your Projects</h2>
-              <Button onClick={handleAddProject} className="rounded-full shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-shadow">
-                <Plus className="h-4 w-4 mr-2" />
+              <h2 className="text-base font-semibold">Projects</h2>
+              <Button onClick={handleAddProject} size="sm" className="rounded-lg h-8 px-3 text-[13px]">
+                <Plus className="h-3.5 w-3.5 mr-1.5" />
                 New Project
               </Button>
             </div>
 
             {projects.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-20 text-center animate-fade-in">
-                <div className="h-20 w-20 rounded-2xl bg-muted flex items-center justify-center mb-5">
-                  <FolderOpen className="h-10 w-10 text-muted-foreground/50" />
+              <div className="empty-state animate-fade-in">
+                <div className="h-16 w-16 rounded-2xl bg-muted flex items-center justify-center mb-4">
+                  <FolderOpen className="h-8 w-8 text-muted-foreground/40" />
                 </div>
-                <h3 className="text-lg font-semibold">No projects yet</h3>
-                <p className="text-muted-foreground mt-1 mb-5 max-w-sm">
-                  Create your first project to start tracking milestones and progress.
+                <h3 className="text-base font-semibold">No projects yet</h3>
+                <p className="text-[13px] text-muted-foreground mt-1 mb-4 max-w-[280px]">
+                  Create your first project to start tracking milestones.
                 </p>
-                <Button onClick={handleAddProject} className="rounded-full">
-                  <Plus className="h-4 w-4 mr-2" />
+                <Button onClick={handleAddProject} size="sm" className="rounded-lg">
+                  <Plus className="h-3.5 w-3.5 mr-1.5" />
                   Create Project
                 </Button>
               </div>
             ) : (
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {projects.map((project) => (
                   <ProjectCard
                     key={project.id}

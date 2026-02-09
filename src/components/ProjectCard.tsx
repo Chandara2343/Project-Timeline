@@ -1,8 +1,7 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
 import { Project } from '@/types/project';
-import { ChevronRight, Edit, Trash2 } from 'lucide-react';
+import { ChevronRight, Pencil, Trash2, CheckCircle2, Circle } from 'lucide-react';
 
 interface ProjectCardProps {
   project: Project;
@@ -23,53 +22,74 @@ export function ProjectCard({
   const totalCount = project.milestones.length;
 
   return (
-    <Card className="group relative overflow-hidden border-border/50 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 cursor-pointer animate-fade-in hover:-translate-y-1">
-      {/* Subtle gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      
-      <CardHeader className="pb-2 relative">
-        <div className="flex items-start justify-between">
-          <div className="flex-1" onClick={onSelect}>
-            <CardTitle className="text-lg font-semibold group-hover:text-primary transition-colors duration-200">
+    <Card className="group relative overflow-hidden border-border/40 hover:border-primary/25 transition-all duration-300 cursor-pointer animate-fade-in hover:shadow-md">
+      <CardHeader className="pb-3 relative" onClick={onSelect}>
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <h3 className="font-semibold text-[15px] leading-snug group-hover:text-primary transition-colors duration-200 truncate">
               {project.name}
-            </CardTitle>
-            <CardDescription className="line-clamp-2 mt-1.5 text-sm">
+            </h3>
+            <p className="text-[13px] text-muted-foreground line-clamp-2 mt-1 leading-relaxed">
               {project.description}
-            </CardDescription>
-          </div>
-          <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-2 group-hover:translate-x-0">
-            <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); onEdit(); }} className="h-8 w-8 rounded-lg">
-              <Edit className="h-3.5 w-3.5" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={(e) => { e.stopPropagation(); onDelete(); }}
-              className="h-8 w-8 rounded-lg text-destructive hover:text-destructive hover:bg-destructive/10"
-            >
-              <Trash2 className="h-3.5 w-3.5" />
-            </Button>
+            </p>
           </div>
         </div>
       </CardHeader>
-      <CardContent onClick={onSelect} className="relative">
+      <CardContent className="relative pt-0">
         <div className="space-y-3">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground font-medium">
-              {completedCount}/{totalCount} milestones
+          {/* Milestone count */}
+          <div className="flex items-center gap-4 text-[13px] text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 text-success" />
+              {completedCount} done
             </span>
-            <span className="font-semibold text-primary">{progress}%</span>
+            <span className="flex items-center gap-1.5">
+              <Circle className="h-3.5 w-3.5" />
+              {totalCount - completedCount} remaining
+            </span>
           </div>
-          <div className="relative h-2 w-full overflow-hidden rounded-full bg-secondary">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-primary to-primary/70 transition-all duration-500 ease-out"
-              style={{ width: `${progress}%` }}
-            />
+
+          {/* Progress bar */}
+          <div className="space-y-1.5">
+            <div className="relative h-1.5 w-full overflow-hidden rounded-full bg-secondary">
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-700 ease-out"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-[12px] text-muted-foreground font-medium">{progress}% complete</span>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center justify-end mt-4 text-sm text-primary font-medium group-hover:gap-2 transition-all duration-200">
-          View Timeline
-          <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-200" />
+
+          {/* Actions */}
+          <div className="flex items-center justify-between pt-1 border-t border-border/40">
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={(e) => { e.stopPropagation(); onEdit(); }}
+                className="h-7 w-7 rounded-md text-muted-foreground hover:text-foreground"
+              >
+                <Pencil className="h-3 w-3" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={(e) => { e.stopPropagation(); onDelete(); }}
+                className="h-7 w-7 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+              >
+                <Trash2 className="h-3 w-3" />
+              </Button>
+            </div>
+            <button
+              onClick={onSelect}
+              className="flex items-center gap-1 text-[13px] font-medium text-primary hover:gap-2 transition-all duration-200"
+            >
+              Open
+              <ChevronRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
         </div>
       </CardContent>
     </Card>
