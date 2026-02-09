@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  # Project Timeline Manager
  
  A clean, visual project timeline application built with modern web technologies. Track your projects and milestones with an intuitive interface.
@@ -137,3 +138,6 @@
  ## 📄 License
 
  MIT License - feel free to use this project for your own purposes.
+=======
+# Project-Timeline
+>>>>>>> 57932f4e7908cb1ab9ea867f2dbe9019e60d7fcb
